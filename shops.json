@@ -6,10 +6,10 @@
   },
   "shops": {
     "s001": {
-      "name": "اسم المحل (مثال)",
+      "name": "اايفون باشا",
       "review_url": "https://mail.google.com/",
-      "pay_url": "",
-      "ipa": "shopname@instapay"
+      "pay_url": "https://mail.google.com/",
+      "ipa": "hossamgamal1761@instapay"
     },
     "s002": {
       "name": "محل تقييم فقط (مثال)",
