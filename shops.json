@@ -1,19 +1,21 @@
 {
   "_help": "لتفعيل استند: أضف سطرًا جديدًا داخل shops بنفس شكل s001. الرقم (s001) هو نفس الرقم المطبوع في الـ QR وداخل الـ NFC. لإيقاف استند اجعل active = false.",
   "owner": {
-    "name":  "Boost Your Store",
+    "name": "Boost Your Store",
     "whatsapp": "201031643389"
   },
   "shops": {
     "s001": {
-      "name": "اايفون باشا",
+      "name": "ايفون باشا",
       "review_url": "https://mail.google.com/",
-      "pay_url": "https://mail.google.com/",
-      "ipa": "hossamgamal1761@instapay"
+      "pay_url": "",
+      "ipa": "hossamgamal1761@instapay",
+      "active": true
     },
     "s002": {
       "name": "محل تقييم فقط (مثال)",
-      "review_url": "https://g.page/r/YYYYYYYY/review"
+      "review_url": "https://g.page/r/YYYYYYYY/review",
+      "active": false
     }
   }
 }
