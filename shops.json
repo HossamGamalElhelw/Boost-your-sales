@@ -1,8 +1,8 @@
 {
   "_help": "لتفعيل استند: أضف سطرًا جديدًا داخل shops بنفس شكل s001. الرقم (s001) هو نفس الرقم المطبوع في الـ QR وداخل الـ NFC. لإيقاف استند اجعل active = false.",
   "owner": {
-    "name": "اسم مشروعك",
-    "whatsapp": "20100XXXXXXX"
+    "name":  "Boost Your Store",
+    "whatsapp": "201031643389"
   },
   "shops": {
     "s001": {
