@@ -7,7 +7,7 @@
   "shops": {
     "s001": {
       "name": "اسم المحل (مثال)",
-      "review_url": "https://g.page/r/XXXXXXXX/review",
+      "review_url": "https://www.bing.com/search?q=claude+code&gs_lcrp=EgRlZGdlKgcIABBFGMIDMgcIABBFGMIDMgcIARBFGMIDMgcIAhBFGMIDMgcIAxBFGMIDMgcIBBBFGMIDMgcIBRBFGMIDMgcIBhBFGMIDMgcIBxBFGMID0gEKMjE2ODI2ajBqNKgCCLACAQ&FORM=ANAB01&PC=U531",
       "pay_url": "",
       "ipa": "shopname@instapay"
     },
