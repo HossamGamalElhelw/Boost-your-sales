@@ -6,12 +6,10 @@
   },
   "shops": {
     "s001": {
-      "name": "ايفون باشا",
-      "review_url": "https://www.google.com/maps/place//data=!4m3!3m2!1s0x145a2841925b6d33:0x80d58ee81fd4f039!12e1",
-      "pay_url": "",
-      "ipa": "hossamgamal1761@instapay",
-      "active": true
-    },
+  "name": "ايفون باشا",
+  "review_url": "https://www.google.com/maps/place//data=!4m3!3m2!1s0x145a2841925b6d33:0x80d58ee81fd4f039!12e1",
+  "active": true
+},
     "s002": {
       "name": "محل تقييم فقط (مثال)",
       "review_url": "https://g.page/r/YYYYYYYY/review",
