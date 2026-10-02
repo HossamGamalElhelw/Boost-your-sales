@@ -1,0 +1,19 @@
+{
+  "_help": "لتفعيل استند: أضف سطرًا جديدًا داخل shops بنفس شكل s001. الرقم (s001) هو نفس الرقم المطبوع في الـ QR وداخل الـ NFC. لإيقاف استند اجعل active = false.",
+  "owner": {
+    "name": "اسم مشروعك",
+    "whatsapp": "20100XXXXXXX"
+  },
+  "shops": {
+    "s001": {
+      "name": "اسم المحل (مثال)",
+      "review_url": "https://g.page/r/XXXXXXXX/review",
+      "pay_url": "",
+      "ipa": "shopname@instapay"
+    },
+    "s002": {
+      "name": "محل تقييم فقط (مثال)",
+      "review_url": "https://g.page/r/YYYYYYYY/review"
+    }
+  }
+}

@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>تقييم ودفع</title>
+<style>
+:root{--bg:#f4f6f5;--card:#fff;--ink:#17211d;--muted:#5d6b65;--line:#dbe2de;--rv-bg:#17211d;--rv-fg:#fff;--pay-bg:#0f6b5c;--pay-fg:#fff}
+@media(prefers-color-scheme:dark){:root{--bg:#0f1512;--card:#18211d;--ink:#eef3f0;--muted:#9aaaa2;--line:#2a3730;--rv-bg:#eef3f0;--rv-fg:#0f1512;--pay-bg:#2fb59d;--pay-fg:#0a1411}}
+*{box-sizing:border-box}
+body{margin:0;min-height:100svh;display:grid;place-items:center;padding:20px;background:var(--bg);color:var(--ink);font-family:"Segoe UI",Tahoma,"Noto Sans Arabic",system-ui,sans-serif;line-height:1.6}
+.card{width:100%;max-width:400px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px 22px;text-align:center}
+h1{margin:0 0 6px;font-size:1.6rem}
+.sub{margin:0 0 18px;color:var(--muted)}
+.btn{display:block;width:100%;margin-top:12px;padding:16px;border:0;border-radius:12px;font:inherit;font-size:1.05rem;font-weight:700;text-decoration:none;cursor:pointer}
+.btn:focus-visible{outline:3px solid var(--pay-bg);outline-offset:2px}
+.rv{background:var(--rv-bg);color:var(--rv-fg)}
+.pay{background:var(--pay-bg);color:var(--pay-fg)}
+.ipa{margin-top:12px;padding:14px;border:1px dashed var(--line);border-radius:12px}
+.ipa small{display:block;color:var(--muted);margin-bottom:6px}
+.ipa code{display:block;direction:ltr;text-align:center;font-size:1.1rem;font-weight:700;word-break:break-all;margin-bottom:10px}
+.ipa .btn{margin-top:0;padding:12px;font-size:1rem}
+</style>
+</head>
+<body>
+<main class="card" id="card"><p class="sub">جاري التحميل...</p></main>
+<script>
+(function () {
+  var card = document.getElementById('card');
+  var isHttps = function (u) { return typeof u === 'string' && /^https:\/\//i.test(u); };
+  var id = decodeURIComponent(location.pathname.split('/').filter(Boolean).pop() || '').toLowerCase();
+
+  function el(tag, cls, text) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text) e.textContent = text;
+    return e;
+  }
+  function clear() { while (card.firstChild) card.removeChild(card.firstChild); }
+
+  function message(title, text, owner) {
+    clear();
+    card.appendChild(el('h1', '', title));
+    card.appendChild(el('p', 'sub', text));
+    if (owner && owner.whatsapp) {
+      var a = el('a', 'btn pay', 'تواصل معنا على واتساب');
+      a.href = 'https://wa.me/' + String(owner.whatsapp).replace(/\D/g, '');
+      card.appendChild(a);
+    }
+  }
+
+  function render(shop) {
+    clear();
+    document.title = shop.name || 'تقييم ودفع';
+    card.appendChild(el('h1', '', shop.name || ''));
+    card.appendChild(el('p', 'sub', 'اختر ما تريد'));
+
+    if (isHttps(shop.review_url)) {
+      var r = el('a', 'btn rv', 'قيّمنا على جوجل');
+      r.href = shop.review_url;
+      card.appendChild(r);
+    }
+    if (isHttps(shop.pay_url)) {
+      var p = el('a', 'btn pay', 'ادفع عبر إنستا باي');
+      p.href = shop.pay_url;
+      card.appendChild(p);
+    }
+    if (shop.ipa) {
+      var box = el('div', 'ipa');
+      box.appendChild(el('small', '', 'عنوان الدفع على إنستا باي'));
+      box.appendChild(el('code', '', shop.ipa));
+      var copy = el('button', 'btn pay', 'انسخ العنوان');
+      copy.type = 'button';
+      copy.onclick = function () {
+        var done = function () { copy.textContent = 'تم النسخ'; };
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(shop.ipa).then(done, function () {});
+        } else {
+          var t = document.createElement('textarea');
+          t.value = shop.ipa; document.body.appendChild(t); t.select();
+          try { document.execCommand('copy'); done(); } catch (e) {}
+          document.body.removeChild(t);
+        }
+      };
+      box.appendChild(copy);
+      card.appendChild(box);
+    }
+  }
+
+  fetch('/shops.json', { cache: 'no-store' })
+    .then(function (r) { return r.json(); })
+    .then(function (db) {
+      var owner = db.owner || {};
+      var shop = (db.shops || {})[id];
+      if (!shop || shop.active === false) {
+        return message('الاستند لم يُفعَّل بعد', 'تواصل معنا لتفعيله لمحلك.', owner);
+      }
+      if (isHttps(shop.review_url) && !isHttps(shop.pay_url) && !shop.ipa) {
+        location.replace(shop.review_url);
+        return;
+      }
+      render(shop);
+    })
+    .catch(function () {
+      message('تعذّر تحميل الصفحة', 'حاول مرة أخرى بعد قليل.');
+    });
+})();
+</script>
+</body>
+</html>
